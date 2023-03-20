@@ -209,10 +209,10 @@ void Error_Handler(void);
 #define TP_INT1_GPIO_Port GPIOA
 #define R2_Pin GPIO_PIN_10
 #define R2_GPIO_Port GPIOC
-#define ACC_MISO_Pin GPIO_PIN_11
-#define ACC_MISO_GPIO_Port GPIOC
-#define ACC_MOSI_Pin GPIO_PIN_12
-#define ACC_MOSI_GPIO_Port GPIOC
+#define Gyro_Acc_Miso_Pin GPIO_PIN_11
+#define Gyro_Acc_Miso_GPIO_Port GPIOC
+#define Acc_Gyro_Mosi_Pin GPIO_PIN_12
+#define Acc_Gyro_Mosi_GPIO_Port GPIOC
 #define D2_Pin GPIO_PIN_0
 #define D2_GPIO_Port GPIOD
 #define D3_Pin GPIO_PIN_1
@@ -221,8 +221,8 @@ void Error_Handler(void);
 #define G7_GPIO_Port GPIOD
 #define B2_Pin GPIO_PIN_6
 #define B2_GPIO_Port GPIOD
-#define ACC_CS_Pin GPIO_PIN_7
-#define ACC_CS_GPIO_Port GPIOD
+#define Acc_Gyro_CS_Pin GPIO_PIN_7
+#define Acc_Gyro_CS_GPIO_Port GPIOD
 #define G3_Pin GPIO_PIN_10
 #define G3_GPIO_Port GPIOG
 #define B3_Pin GPIO_PIN_11
@@ -235,8 +235,8 @@ void Error_Handler(void);
 #define LD4_GPIO_Port GPIOG
 #define SDNCAS_Pin GPIO_PIN_15
 #define SDNCAS_GPIO_Port GPIOG
-#define ACC_CLK_Pin GPIO_PIN_3
-#define ACC_CLK_GPIO_Port GPIOB
+#define Gyro_Acc_Clk_Pin GPIO_PIN_3
+#define Gyro_Acc_Clk_GPIO_Port GPIOB
 #define SDCKE1_Pin GPIO_PIN_5
 #define SDCKE1_GPIO_Port GPIOB
 #define SDNE1_Pin GPIO_PIN_6
