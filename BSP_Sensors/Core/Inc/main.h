@@ -1,21 +1,4 @@
 /* USER CODE BEGIN Header */
-/**
-  ******************************************************************************
-  * @file           : main.h
-  * @brief          : Header for main.c file.
-  *                   This file contains the common defines of the application.
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2023 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
 /* USER CODE END Header */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
@@ -31,29 +14,24 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
-
 /* USER CODE END EC */
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
-
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
@@ -209,10 +187,10 @@ void Error_Handler(void);
 #define TP_INT1_GPIO_Port GPIOA
 #define R2_Pin GPIO_PIN_10
 #define R2_GPIO_Port GPIOC
-#define Gyro_Acc_Miso_Pin GPIO_PIN_11
-#define Gyro_Acc_Miso_GPIO_Port GPIOC
-#define Acc_Gyro_Mosi_Pin GPIO_PIN_12
-#define Acc_Gyro_Mosi_GPIO_Port GPIOC
+#define SPI3_MISO_Pin GPIO_PIN_11
+#define SPI3_MISO_GPIO_Port GPIOC
+#define SPI3_MOSI_Pin GPIO_PIN_12
+#define SPI3_MOSI_GPIO_Port GPIOC
 #define D2_Pin GPIO_PIN_0
 #define D2_GPIO_Port GPIOD
 #define D3_Pin GPIO_PIN_1
@@ -221,8 +199,8 @@ void Error_Handler(void);
 #define G7_GPIO_Port GPIOD
 #define B2_Pin GPIO_PIN_6
 #define B2_GPIO_Port GPIOD
-#define Acc_Gyro_CS_Pin GPIO_PIN_7
-#define Acc_Gyro_CS_GPIO_Port GPIOD
+#define NCS_MEMS_SPI3_Pin GPIO_PIN_7
+#define NCS_MEMS_SPI3_GPIO_Port GPIOD
 #define G3_Pin GPIO_PIN_10
 #define G3_GPIO_Port GPIOG
 #define B3_Pin GPIO_PIN_11
@@ -235,8 +213,8 @@ void Error_Handler(void);
 #define LD4_GPIO_Port GPIOG
 #define SDNCAS_Pin GPIO_PIN_15
 #define SDNCAS_GPIO_Port GPIOG
-#define Gyro_Acc_Clk_Pin GPIO_PIN_3
-#define Gyro_Acc_Clk_GPIO_Port GPIOB
+#define SPI3_SCK_Pin GPIO_PIN_3
+#define SPI3_SCK_GPIO_Port GPIOB
 #define SDCKE1_Pin GPIO_PIN_5
 #define SDCKE1_GPIO_Port GPIOB
 #define SDNE1_Pin GPIO_PIN_6
@@ -251,7 +229,6 @@ void Error_Handler(void);
 #define NBL1_GPIO_Port GPIOE
 
 /* USER CODE BEGIN Private defines */
-
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

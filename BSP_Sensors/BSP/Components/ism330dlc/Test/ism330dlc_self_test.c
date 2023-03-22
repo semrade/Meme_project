@@ -67,6 +67,7 @@
 #elif defined(SPC584B_DIS)
 #include "components.h"
 #elif defined(STM32F429xx)
+#include "main.h"
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx_hal_spi.h"
 #include "stm32f4xx_hal_uart.h"
@@ -103,8 +104,9 @@
 #define SENSOR_BUS I2CD1
 #elif defined(STM32F429xx)
 extern SPI_HandleTypeDef hspi5;
+extern SPI_HandleTypeDef hspi3;
 extern UART_HandleTypeDef huart1;
-#define SENSOR_BUS hspi5
+#define SENSOR_BUS hspi3
 #endif
 /* Private macro -------------------------------------------------------------*/
 
@@ -391,7 +393,6 @@ void ism330dlc_self_test(void)
 	{
 		sprintf((char*) tx_buffer, "Self Test - PASS\r\n");
 	}
-
 	else
 	{
 		sprintf((char*) tx_buffer, "Self Test - FAIL\r\n");
@@ -422,11 +423,10 @@ static int32_t platform_write(void *handle, uint8_t reg, const uint8_t *bufp, ui
 #elif defined(SPC584B_DIS)
   i2c_lld_write(handle,  ISM330DLC_I2C_ADD_L & 0xFE, reg, (uint8_t*) bufp, len);
 #elif defined(STM32F429xx)
-	//Send Write
-	if (HAL_SPI_TransmitReceive((SPI_HandleTypeDef*)handle, &reg, bufp, len, 0X1000) != HAL_OK)
-	{
-		//SPIx_Error();
-	}
+  HAL_GPIO_WritePin(NCS_MEMS_SPI3_GPIO_Port, NCS_MEMS_SPI3_Pin, GPIO_PIN_RESET);
+  HAL_SPI_Transmit((SPI_HandleTypeDef*)handle, &reg, 1, 1000);
+  HAL_SPI_Transmit((SPI_HandleTypeDef*)handle, (uint8_t*) bufp, len, 1000);
+  HAL_GPIO_WritePin(NCS_MEMS_SPI3_GPIO_Port, NCS_MEMS_SPI3_Pin, GPIO_PIN_SET);
 #endif
 	return 0;
 }
@@ -454,11 +454,11 @@ static int32_t platform_read(void *handle, uint8_t reg, uint8_t *bufp, uint16_t 
 #elif defined(SPC584B_DIS)
   i2c_lld_read(handle, ISM330DLC_I2C_ADD_L & 0xFE, reg, bufp, len);
 #elif defined(STM32F429xx)
-	//Send Write
-	if (HAL_SPI_TransmitReceive((SPI_HandleTypeDef*)handle, &reg, bufp, len, 0X1000) != HAL_OK)
-	{
-		//SPIx_Error();
-	}
+  reg |= 0x80;
+  HAL_GPIO_WritePin(NCS_MEMS_SPI3_GPIO_Port, NCS_MEMS_SPI3_Pin, GPIO_PIN_RESET);
+  HAL_SPI_Transmit((SPI_HandleTypeDef*)handle, &reg, 1, 1000);
+  HAL_SPI_Receive((SPI_HandleTypeDef*)handle, bufp, len, 1000);
+  HAL_GPIO_WritePin(NCS_MEMS_SPI3_GPIO_Port, NCS_MEMS_SPI3_Pin, GPIO_PIN_SET);
 #endif
 	return 0;
 }

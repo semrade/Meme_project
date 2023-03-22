@@ -25,8 +25,8 @@ extern SPI_HandleTypeDef hspi5;
 #define DUMMY_BYTE                 ((uint8_t)0x00)
 
 /* Chip Select macro definition for ism330dlc */
-#define GYRO_ACC_CS_LOW()       HAL_GPIO_WritePin(Acc_Gyro_CS_GPIO_Port, Acc_Gyro_CS_Pin, GPIO_PIN_RESET)
-#define GYRO_ACC_CS_HIGH()      HAL_GPIO_WritePin(Acc_Gyro_CS_GPIO_Port, Acc_Gyro_CS_Pin, GPIO_PIN_SET)
+#define GYRO_ACC_CS_LOW()       HAL_GPIO_WritePin(NCS_MEMS_SPI3_GPIO_Port, NCS_MEMS_SPI3_Pin, GPIO_PIN_RESET)
+#define GYRO_ACC_CS_HIGH()      HAL_GPIO_WritePin(NCS_MEMS_SPI3_GPIO_Port, NCS_MEMS_SPI3_Pin, GPIO_PIN_SET)
 
 #define GYRO_CS_LOW()       	HAL_GPIO_WritePin(NCS_MEMS_SPI_GPIO_Port, NCS_MEMS_SPI_Pin, GPIO_PIN_RESET)
 #define GYRO_CS_HIGH()       	HAL_GPIO_WritePin(NCS_MEMS_SPI_GPIO_Port, NCS_MEMS_SPI_Pin, GPIO_PIN_SET)

@@ -31,14 +31,14 @@ uint16_t TL3GD20_Update_Regiter_Flag = 0;
 Reg_Type_Address TL3GD20_Reg_Type_Adr [] =
 {
 	{.adr=0xFF,    .type=0xFF},  //r    10              Reserved
-	{.adr=0x0F,    .type=0X02},  //		                WHO_AM_I
+	{.adr=0x0F,    .type=0X02},  //r	                WHO_AM_I
 	{.adr=0xFF,    .type=0XFF},  //rw   11	            Reserved
 	{.adr=0x20,    .type=0x03},  //rw		            CTRL_REG1
 	{.adr=0x21,    .type=0x03},  //rw		            CTRL_REG2
 	{.adr=0x22,    .type=0x03},  //rw                   CTRL_REG3
 	{.adr=0x23,    .type=0x03},  //rw                   CTRL_REG4
 	{.adr=0x24,    .type=0x03},  //rw                   CTRL_REG5
-	{.adr=0x25,    .type=0x03},  //r                    REFERENCE
+	{.adr=0x25,    .type=0x03},  //rw                   REFERENCE
 	{.adr=0x26,    .type=0x02},  //r                    OUT_TEMP
 	{.adr=0x27,    .type=0x02},  //r                    STATUS_REG
 	{.adr=0x28,    .type=0x02},  //r                    OUT_X_L
@@ -57,7 +57,7 @@ Reg_Type_Address TL3GD20_Reg_Type_Adr [] =
 	{.adr=0x35,    .type=0x03},  //rw                   INT1_TSH_YL
 	{.adr=0x36,    .type=0x03},  //rw                   INT1_TSH_ZH
 	{.adr=0x37,    .type=0x03},  //rw                   INT1_TSH_ZL
-	{.adr=0x38,    .type=0x03},  //                     INT1_DURATION
+	{.adr=0x38,    .type=0x03},  //rw                   INT1_DURATION
 };
 
 Reg_Type_Address IMS330DLC_Reg_Type_Adr [] =

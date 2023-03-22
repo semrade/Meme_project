@@ -91,10 +91,6 @@ static uint8_t SPI3_WriteRead(uint8_t Byte)
   return receivedbyte;
 }
 /***************************************3D Gyro Dico Board Function Section******************************************/
-
-
-
-
 /**
  * @brief  Writes one byte to the Gyroscope.
  * @param  pBuffer: Pointer to the buffer containing the data to be written to the Gyroscope.
@@ -157,11 +153,6 @@ void Gyro_l3gd20_Read(uint8_t *pBuffer, uint8_t ReadAddr, uint16_t NumByteToRead
 	/* Set chip select High at the end of the transmission */
 	GYRO_CS_HIGH();
 }
-
-
-
-
-
 
 
 static uint8_t SPI5_WriteRead(uint8_t Byte)

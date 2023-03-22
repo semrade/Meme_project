@@ -62,4 +62,7 @@ uint8_t L3GD20_GetDataStatus(void);
 void Gyro_l3gd20_Write(uint8_t *pBuffer, uint8_t WriteAddr, uint16_t NumByteToWrite);
 void Gyro_l3gd20_Read(uint8_t *pBuffer, uint8_t ReadAddr, uint16_t NumByteToRead);
 
+
+
+
 #endif /* L3GD20_H_ */
