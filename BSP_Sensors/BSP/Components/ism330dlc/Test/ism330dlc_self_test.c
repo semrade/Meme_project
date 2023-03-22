@@ -90,23 +90,21 @@
  */
 
 #if defined(STEVAL_MKI109V3)
-/* MKI109V3: Define communication interface */
-#define SENSOR_BUS hspi2
-/* MKI109V3: Vdd and Vddio power supply values */
-#define PWM_3V3 915
-
+	/* MKI109V3: Define communication interface */
+	#define SENSOR_BUS hspi2
+	/* MKI109V3: Vdd and Vddio power supply values */
+	#define PWM_3V3 915
 #elif defined(NUCLEO_F411RE)
-/* NUCLEO_F411RE: Define communication interface */
-#define SENSOR_BUS hi2c1
-
+	/* NUCLEO_F411RE: Define communication interface */
+	#define SENSOR_BUS hi2c1
 #elif defined(SPC584B_DIS)
-/* DISCOVERY_SPC584B: Define communication interface */
-#define SENSOR_BUS I2CD1
+	/* DISCOVERY_SPC584B: Define communication interface */
+	#define SENSOR_BUS I2CD1
 #elif defined(STM32F429xx)
-extern SPI_HandleTypeDef hspi5;
-extern SPI_HandleTypeDef hspi3;
-extern UART_HandleTypeDef huart1;
-#define SENSOR_BUS hspi3
+	extern SPI_HandleTypeDef hspi5;
+	extern SPI_HandleTypeDef hspi3;
+	extern UART_HandleTypeDef huart1;
+	#define SENSOR_BUS hspi3
 #endif
 /* Private macro -------------------------------------------------------------*/
 
