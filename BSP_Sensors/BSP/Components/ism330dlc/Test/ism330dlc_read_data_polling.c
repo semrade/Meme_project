@@ -104,6 +104,7 @@
 	extern SPI_HandleTypeDef hspi3;
 	extern UART_HandleTypeDef huart1;
 	#define SENSOR_BUS hspi3
+	#define DO_WHILE
 #endif
 
 /* Private macro -------------------------------------------------------------*/
@@ -182,19 +183,23 @@ void ism330dlc_read_data_polling(void)
 	ism330dlc_xl_filter_analog_set(&dev_ctx, ISM330DLC_XL_ANA_BW_400Hz);
 
 	/* Accelerometer - LPF1 path ( LPF2 not used )*/
-	//ism330dlc_xl_lp1_bandwidth_set(&dev_ctx, ISM330DLC_XL_LP1_ODR_DIV_4);
+	ism330dlc_xl_lp1_bandwidth_set(&dev_ctx, ISM330DLC_XL_LP1_ODR_DIV_4);
 	/* Accelerometer - LPF1 + LPF2 path */
 	ism330dlc_xl_lp2_bandwidth_set(&dev_ctx, ISM330DLC_XL_LOW_NOISE_LP_ODR_DIV_100);
 
 	/* Accelerometer - High Pass / Slope path */
-	//ism330dlc_xl_reference_mode_set(&dev_ctx, PROPERTY_DISABLE);
-	//ism330dlc_xl_hp_bandwidth_set(&dev_ctx, ISM330DLC_XL_HP_ODR_DIV_100);
+	ism330dlc_xl_reference_mode_set(&dev_ctx, PROPERTY_DISABLE);
+	ism330dlc_xl_hp_bandwidth_set(&dev_ctx, ISM330DLC_XL_HP_ODR_DIV_100);
 	/* Gyroscope - filtering chain */
 	ism330dlc_gy_band_pass_set(&dev_ctx, ISM330DLC_HP_260mHz_LP1_STRONG);
 
 	/* Read samples in polling mode (no int) */
-	cmp = 15;
+	cmp = 250;
+#ifdef DO_WHILE
 	do
+#else
+	while (1)
+#endif
 	{
 		cmp--;
 		/* Read output only if new value is available */
@@ -209,7 +214,8 @@ void ism330dlc_read_data_polling(void)
 			acceleration_mg[0] = ism330dlc_from_fs2g_to_mg(data_raw_acceleration[0]);
 			acceleration_mg[1] = ism330dlc_from_fs2g_to_mg(data_raw_acceleration[1]);
 			acceleration_mg[2] = ism330dlc_from_fs2g_to_mg(data_raw_acceleration[2]);
-			sprintf((char*) tx_buffer, "Acceleration [mg]:%4.2f\t%4.2f\t%4.2f\r\n", acceleration_mg[0], acceleration_mg[1], acceleration_mg[2]);
+			//printf("%9.6f", myFloat) specifies a format with 9 total characters: 2 digits before the dot, the dot itself, and six digits after the dot.
+			sprintf((char*) tx_buffer, "Acceleration [mg]:%4.2f\t%4.2f\t%4.2f\t cmp %d\r\n", acceleration_mg[0], acceleration_mg[1], acceleration_mg[2], cmp);
 			tx_com(tx_buffer, strlen((char const*) tx_buffer));
 		}
 
@@ -221,7 +227,8 @@ void ism330dlc_read_data_polling(void)
 			angular_rate_mdps[0] = ism330dlc_from_fs2000dps_to_mdps(data_raw_angular_rate[0]);
 			angular_rate_mdps[1] = ism330dlc_from_fs2000dps_to_mdps(data_raw_angular_rate[1]);
 			angular_rate_mdps[2] = ism330dlc_from_fs2000dps_to_mdps(data_raw_angular_rate[2]);
-			sprintf((char*) tx_buffer, "Angular rate [mdps]:%4.2f\t%4.2f\t%4.2f\r\n", angular_rate_mdps[0], angular_rate_mdps[1], angular_rate_mdps[2]);
+			//printf("%9.6f", myFloat) specifies a format with 9 total characters: 2 digits before the dot, the dot itself, and six digits after the dot.
+			sprintf((char*) tx_buffer, "Angular rate [mdps]:%4.2f\t%4.2f\t%4.2f\t cmp %d\r\n", angular_rate_mdps[0], angular_rate_mdps[1], angular_rate_mdps[2],cmp);
 			tx_com(tx_buffer, strlen((char const*) tx_buffer));
 		}
 
@@ -231,10 +238,15 @@ void ism330dlc_read_data_polling(void)
 			memset(&data_raw_temperature, 0x00, sizeof(int16_t));
 			ism330dlc_temperature_raw_get(&dev_ctx, &data_raw_temperature);
 			temperature_degC = ism330dlc_from_lsb_to_celsius(data_raw_temperature);
-			sprintf((char*) tx_buffer, "Temperature [degC]:%6.2f\r\n", temperature_degC);
+			//printf("%9.6f", myFloat) specifies a format with 9 total characters: 2 digits before the dot, the dot itself, and six digits after the dot.
+			sprintf((char*) tx_buffer, "Temperature [degC]:%6.2f\t cmp %d\r\n", temperature_degC, cmp);
 			tx_com(tx_buffer, strlen((char const*) tx_buffer));
 		}
+#ifdef	DO_WHILE
 	} while (cmp > 0);
+#else
+	}
+#endif
 }
 
 /*

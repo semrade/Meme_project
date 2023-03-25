@@ -50,7 +50,13 @@ TIM_HandleTypeDef htim6;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-
+typedef struct
+{
+	uint32_t interrupt_counter;
+	uint32_t loop_counter;
+	uint32_t id_failure;
+}debug;
+extern debug Debugvariable;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -106,8 +112,13 @@ int main(void)
 
   //BSP_GYRO_Init_task();
 
-  ism330dlc_read_data_polling();
-  ism330dlc_self_test();
+
+  //TODO creat a test file/folder for unite test
+  //ism330dlc_read_data_polling();
+  //ism330dlc_self_test();
+
+  // Init ism330dlc 3D Gyro 3D Acc
+  BSP_ISM330_GYRO_ACC_Init_task();
 
   HAL_TIM_Base_Start_IT(&htim6);
   /* USER CODE END 2 */
@@ -582,7 +593,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		//toglle leds
 		HAL_GPIO_TogglePin(LD3_GPIO_Port,LD3_Pin);
 		HAL_GPIO_TogglePin(LD4_GPIO_Port,LD4_Pin);
-		//BSP_GYRO_10ms_Task();
+		BSP_GYRO_10ms_Task();
+		Debugvariable.interrupt_counter ++;
+
 #if 0
 		for (index = 0; index < 10; index++)
 		{

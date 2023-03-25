@@ -22,13 +22,6 @@ static uint8_t SPI5_WriteRead(uint8_t Byte);
  */
 void Acc_Gyro_Imc330dlc_Write(uint8_t *pBuffer, uint8_t WriteAddr, uint16_t NumByteToWrite)
 {
-	/* Configure the MS bit:
-	 - When 0, the address will remain unchanged in multiple read/write commands.
-	 - When 1, the address will be auto incremented in multiple read/write commands.
-	 */
-	if (NumByteToWrite > 0x01) {
-		WriteAddr |= (uint8_t) MULTIPLEBYTE_CMD;
-	}
 	/* Set chip select Low at the start of the transmission */
 	GYRO_ACC_CS_LOW();
 
@@ -52,13 +45,11 @@ void Acc_Gyro_Imc330dlc_Write(uint8_t *pBuffer, uint8_t WriteAddr, uint16_t NumB
  * @param  ReadAddr: Gyroscope's internal address to read from.
  * @param  NumByteToRead: Number of bytes to read from the Gyroscope.
  */
-void Acc_Gyro_Imc330dlc_Read(uint8_t *pBuffer, uint8_t ReadAddr, uint16_t NumByteToRead)
+void Acc_Gyro_Ism330dlc_Read(uint8_t *pBuffer, uint8_t ReadAddr, uint16_t NumByteToRead)
 {
-	if (NumByteToRead > 0x01) {
-		ReadAddr |= (uint8_t) (READWRITE_CMD | MULTIPLEBYTE_CMD);
-	} else {
-		ReadAddr |= (uint8_t) READWRITE_CMD;
-	}
+
+	ReadAddr |= (uint8_t) READWRITE_CMD;
+
 	/* Set chip select Low at the start of the transmission */
 	GYRO_ACC_CS_LOW();
 
@@ -85,7 +76,7 @@ static uint8_t SPI3_WriteRead(uint8_t Byte)
   /* Read byte from the SPI bus */
   if(HAL_SPI_TransmitReceive(&hspi3, (uint8_t*) &Byte, (uint8_t*) &receivedbyte, 1, 0X1000) != HAL_OK)
   {
-    //SPIx_Error();
+	  Error_Handler();
   }
 
   return receivedbyte;
@@ -163,7 +154,7 @@ static uint8_t SPI5_WriteRead(uint8_t Byte)
   /* Read byte from the SPI bus */
   if(HAL_SPI_TransmitReceive(&hspi5, (uint8_t*) &Byte, (uint8_t*) &receivedbyte, 1, 0X1000) != HAL_OK)
   {
-    //SPIx_Error();
+	  Error_Handler();
   }
 
   return receivedbyte;

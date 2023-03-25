@@ -32,7 +32,7 @@ extern SPI_HandleTypeDef hspi5;
 #define GYRO_CS_HIGH()       	HAL_GPIO_WritePin(NCS_MEMS_SPI_GPIO_Port, NCS_MEMS_SPI_Pin, GPIO_PIN_SET)
 
 void Acc_Gyro_Imc330dlc_Write(uint8_t *pBuffer, uint8_t WriteAddr, uint16_t NumByteToWrite);
-void Acc_Gyro_Imc330dlc_Read(uint8_t *pBuffer, uint8_t ReadAddr, uint16_t NumByteToRead);
+void Acc_Gyro_Ism330dlc_Read(uint8_t *pBuffer, uint8_t ReadAddr, uint16_t NumByteToRead);
 
 
 void Gyro_l3gd20_Write(uint8_t *pBuffer, uint8_t WriteAddr, uint16_t NumByteToWrite);

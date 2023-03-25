@@ -72,7 +72,7 @@ typedef volatile union
 		uint8_t FTH_8 :1;
 		uint8_t FTH_9 :1;
 		uint8_t FTH_10 :1;
-		uint8_t FIFO_TEMP_EN; 		/*Enables the temperature data storage in FIFO*/
+		uint8_t FIFO_TEMP_EN:1; 		/*Enables the temperature data storage in FIFO*/
 		uint8_t Reserved :3;
 		uint8_t FIFO_TIMER_EN :1; 	/*Enables timestamp data to be stored as the 4th FIFO data se*/
 	} ISM330DLC_RegBits;
@@ -268,6 +268,7 @@ typedef volatile union
 		uint8_t Reversed :1;
 		uint8_t USR_OFF_W :1; 	//Weight of XL user offset bits of registers
 		uint8_t XL_HM_MDOE :1; 	//High-performance operating mode disable for accelerometer
+		uint8_t LVL1_EN :1; 		//DEN level-sensitive latched enable
 		uint8_t LVL2_EN :1; 		//DEN level-sensitive latched enable
 		uint8_t RTIG_EN :1; 		//DEN data edge-sensitive trigger enable
 	} ISM330DLC_RegBits;
@@ -290,6 +291,7 @@ typedef volatile union
 
 typedef volatile union
 {
+	uint8_t All;
 	struct
 	{
 		uint8_t LOW_PASS_ON_6D :1;	//LPF2 on 6D function selection
@@ -395,6 +397,7 @@ typedef volatile union
 	} ISM330DLC_RegBits;
 } Tun_D6d_Src;
 
+#define ISM330DLC_STATUS_REG             0x1EU
 typedef volatile union
 {
 	uint8_t All;
@@ -847,116 +850,115 @@ typedef volatile union
 	} ISM330DLC_RegBits;
 } Tun_Slave3_Config;
 
-#define ISM330DLC_MAX_BUFFER_REG 104
+#define ISM330DLC_MAX_BUFFER_REG 103
 
 typedef union
 {
 	struct
 	{
-		uint8_t Reserved1;
-		Tun_Runc_Cfg_Access FUNC_CFG_ACCESS;
-		uint8_t Reserved2;
-		uint8_t Reserved3;
-		Tun_Sen_Tim_Fram SENSOR_SYNC_TIME_FRAME;
-		Tun_Sen_Sync_Res_Ratio SENSOR_SYNC_RES_RATIO;
-		Tun_Fifo_Ctrl1 FIFO_CTRL1;
-		Tun_Fifo_Ctrl2 FIFO_CTRL2;
-		Tun_Fifo_Ctrl3 FIFO_CTRL3;
-		Tun_Fifo_Ctrl4 FIFO_CTRL4;
-		Tun_Fifo_Ctrl5 FIFO_CTRL5;
-		Tun_Drdy_Pulse_Cfg DRDY_PULSE_CFG;
-		uint8_t Reserved4;
-		Tun_Int1_Ctrl INT1_CTRL;
-		Tun_Int2_Ctrl INT2_CTRL;
-		uint8_t WHO_AM_I;
-		Tun_Ctrl1_Xl CTRL1_XL;
-		Tun_Ctrl2_G CTRL2_G;
-		Tun_Ctrl3_C CTRL3_C;
-		Tun_Ctrl4_C CTRL4_C;
-		Tun_Ctrl5_C CTRL5_C;
-		Tun_Ctrl6_C CTRL6_C;
-		Tun_Ctrl7_G CTRL7_G;
-		Tun_Ctrl8_Xl CTRL8_XL;
-		Tun_Ctrl9_Xl CTRL9_XL;
-		Tun_Ctrl10_C CTRL10_C;
-		Tun_Master_Config MASTER_CONFIG;
-		Tun_Wake_Up_Src WAKE_UP_SRC;
-		Tun_Tap_Src TAP_SRC;
-		Tun_D6d_Src D6D_SRC;
-		Tun_Status_Reg STATUS_REG;
-		Tun_Status_Spi_Aux STATUS_SPIAux;
-		uint8_t Reserved44;
-		Tun_Out_Temp_L OUT_TEMP_L;
-		Tun_Out_Temp_H OUT_TEMP_H;
-		uint8_t OUTX_L_G;
-		uint8_t OUTX_H_G;
-		uint8_t OUTY_L_G;
-		uint8_t OUTY_H_G;
-		uint8_t OUTZ_L_G;
-		uint8_t OUTZ_H_G;
-		uint8_t OUTX_L_XL;
-		uint8_t OUTX_H_XL;
-		uint8_t OUTY_L_XL;
-		uint8_t OUTY_H_XL;
-		uint8_t OUTZ_L_XL;
-		uint8_t OUTZ_H_XL;
-		uint8_t SENSORHUB1_REG;
-		uint8_t SENSORHUB2_REG;
-		uint8_t SENSORHUB3_REG;
-		uint8_t SENSORHUB4_REG;
-		uint8_t SENSORHUB5_REG;
-		uint8_t SENSORHUB6_REG;
-		uint8_t SENSORHUB7_REG;
-		uint8_t SENSORHUB8_REG;
-		uint8_t SENSORHUB9_REG;
-		uint8_t SENSORHUB10_REG;
-		uint8_t SENSORHUB11_REG;
-		uint8_t SENSORHUB12_REG;
-		Tun_Fifo_Status1 FIFO_STATUS1;
-		Tun_Fifo_Status2 FIFO_STATUS2;
-		Tun_Fifo_Status3 FIFO_STATUS3;
-		Tun_Fifo_Status4 FIFO_STATUS4;
-		uint8_t FIFO_DATA_OUT_L;
-		uint8_t FIFO_DATA_OUT_H;
-		uint8_t TIMESTAMP0_REG;
-		uint8_t TIMESTAMP1_REG;
-		uint8_t TIMESTAMP2_REG;
-		uint8_t Reserved5;
-		uint8_t SENSORHUB13_REG;
-		uint8_t SENSORHUB14_REG;
-		uint8_t SENSORHUB15_REG;
-		uint8_t SENSORHUB16_REG;
-		uint8_t SENSORHUB17_REG;
-		uint8_t SENSORHUB18_REG;
-		Tun_Func_Src1 FUNC_SRC1;
-		Tun_Func_Src2 FUNC_SRC2;
-		uint8_t Reserved6;
-		Tun_Tap_Cfg TAP_CFG;
-		Tun_Tap_Ths_6D TAP_THS_6D;
-		Tun_Int_Dur2 INT_DUR2;
-		Tun_Wake_Up_Ths WAKE_UP_THS;
-		Tun_Wake_Up_Dur WAKE_UP_DUR;
-		Tun_Free_Fall FREE_FALL;
-		Tun_Md1_Cfg MD1_CFG;
-		Tun_Md2_Cfg MD2_CFG;
-		uint8_t MASTER_CMD_CODE;
-		uint8_t SENS_SYNC_SPI_ERROR_CODE;
-		uint8_t Reserved7;
-		uint8_t OUT_MAG_RAW_X_L;
-		uint8_t OUT_MAG_RAW_X_H;
-		uint8_t OUT_MAG_RAW_Y_L;
-		uint8_t OUT_MAG_RAW_Y_H;
-		uint8_t OUT_MAG_RAW_Z_L;
-		uint8_t OUT_MAG_RAW_Z_H;
-		uint8_t Reserved8;
-		Tun_Int_Ois INT_OIS;
-		Tun_Ctrl1_Ois CTRL1_OIS;
-		Tun_Ctrl2_Ois CTRL2_OIS;
-		Tun_Ctrl3_Ois CTRL3_OIS;
-		uint8_t X_OFS_USR;
-		uint8_t Y_OFS_USR;
-		uint8_t Z_OFS_USR;
-		uint8_t Reserved9;
+		uint8_t Reserved1;                                                //RESERVED
+		Tun_Runc_Cfg_Access FUNC_CFG_ACCESS;                              //FUNC_CFG_ACCESS
+		uint8_t Reserved2;                                                //RESERVED
+		uint8_t Reserved3;                                                //RESERVED
+		Tun_Sen_Tim_Fram SENSOR_SYNC_TIME_FRAME;                          //ENSOR_SYNC_TIME_FRAME
+		Tun_Sen_Sync_Res_Ratio SENSOR_SYNC_RES_RATIO;                     //SENSOR_SYNC_RES_RATIO
+		Tun_Fifo_Ctrl1 FIFO_CTRL1;                                        //FIFO_CTRL1
+		Tun_Fifo_Ctrl2 FIFO_CTRL2;                                        //FIFO_CTRL2
+		Tun_Fifo_Ctrl3 FIFO_CTRL3;                                        //FIFO_CTRL3
+		Tun_Fifo_Ctrl4 FIFO_CTRL4;                                        //FIFO_CTRL4
+		Tun_Fifo_Ctrl5 FIFO_CTRL5;                                        //FIFO_CTRL5
+		Tun_Drdy_Pulse_Cfg DRDY_PULSE_CFG;                                //DRDY_PULSE_CFG
+		uint8_t Reserved4;                                                //RESERVED
+		Tun_Int1_Ctrl INT1_CTRL;                                          //INT1_CTRL
+		Tun_Int2_Ctrl INT2_CTRL;                                          //INT2_CTRL
+		uint8_t WHO_AM_I;                                                 //WHO_AM_I
+		Tun_Ctrl1_Xl CTRL1_XL;                                            //CTRL1_XL
+		Tun_Ctrl2_G CTRL2_G;                                              //CTRL2_G
+		Tun_Ctrl3_C CTRL3_C;                                              //CTRL3_C
+		Tun_Ctrl4_C CTRL4_C;                                              //CTRL4_C
+		Tun_Ctrl5_C CTRL5_C;                                              //CTRL5_C
+		Tun_Ctrl6_C CTRL6_C;                                              //CTRL6_C
+		Tun_Ctrl7_G CTRL7_G;                                              //CTRL7_G
+		Tun_Ctrl8_Xl CTRL8_XL;                                            //CTRL8_XL
+		Tun_Ctrl9_Xl CTRL9_XL;                                            //CTRL9_XL
+		Tun_Ctrl10_C CTRL10_C;                                            //CTRL10_C
+		Tun_Master_Config MASTER_CONFIG;                                  //MASTER_CONFIG
+		Tun_Wake_Up_Src WAKE_UP_SRC;                                      //WAKE_UP_SRC
+		Tun_Tap_Src TAP_SRC;                                              //TAP_SRC
+		Tun_D6d_Src D6D_SRC;                                              //D6D_SRC
+		Tun_Status_Reg STATUS_REG;                                        //STATUS_REG/(1)(2)
+		uint8_t Reserved44;                                               //RESERVED
+		Tun_Out_Temp_L OUT_TEMP_L;                                        //OUT_TEMP_L
+		Tun_Out_Temp_H OUT_TEMP_H;                                        //OUT_TEMP_H
+		uint8_t OUTX_L_G;                                                 //OUTX_L_G
+		uint8_t OUTX_H_G;                                                 //OUTX_H_G
+		uint8_t OUTY_L_G;                                                 //OUTY_L_G
+		uint8_t OUTY_H_G;                                                 //OUTY_H_G
+		uint8_t OUTZ_L_G;                                                 //OUTZ_L_G
+		uint8_t OUTZ_H_G;                                                 //OUTZ_H_G
+		uint8_t OUTX_L_XL;                                                //OUTX_L_XL
+		uint8_t OUTX_H_XL;                                                //OUTX_H_XL
+		uint8_t OUTY_L_XL;                                                //OUTY_L_XL
+		uint8_t OUTY_H_XL;                                                //OUTY_H_XL
+		uint8_t OUTZ_L_XL;                                                //OUTZ_L_XL
+		uint8_t OUTZ_H_XL;                                                //OUTZ_H_XL
+		uint8_t SENSORHUB1_REG;                                           //SENSORHUB1_REG
+		uint8_t SENSORHUB2_REG;                                           //SENSORHUB2_REG
+		uint8_t SENSORHUB3_REG;                                           //SENSORHUB3_REG
+		uint8_t SENSORHUB4_REG;                                           //SENSORHUB4_REG
+		uint8_t SENSORHUB5_REG;                                           //SENSORHUB5_REG
+		uint8_t SENSORHUB6_REG;                                           //SENSORHUB6_REG
+		uint8_t SENSORHUB7_REG;                                           //SENSORHUB7_REG
+		uint8_t SENSORHUB8_REG;                                           //SENSORHUB8_REG
+		uint8_t SENSORHUB9_REG;                                           //SENSORHUB9_REG
+		uint8_t SENSORHUB10_REG;                                          //SENSORHUB10_REG
+		uint8_t SENSORHUB11_REG;                                          //SENSORHUB11_REG
+		uint8_t SENSORHUB12_REG;                                          //SENSORHUB12_REG
+		Tun_Fifo_Status1 FIFO_STATUS1;                                    //FIFO_STATUS1
+		Tun_Fifo_Status2 FIFO_STATUS2;                                    //FIFO_STATUS2
+		Tun_Fifo_Status3 FIFO_STATUS3;                                    //FIFO_STATUS3
+		Tun_Fifo_Status4 FIFO_STATUS4;                                    //FIFO_STATUS4
+		uint8_t FIFO_DATA_OUT_L;                                          //FIFO_DATA_OUT_L
+		uint8_t FIFO_DATA_OUT_H;                                          //FIFO_DATA_OUT_H
+		uint8_t TIMESTAMP0_REG;                                           //TIMESTAMP0_REG
+		uint8_t TIMESTAMP1_REG;                                           //TIMESTAMP1_REG
+		uint8_t TIMESTAMP2_REG;                                           //TIMESTAMP2_REG
+		uint8_t Reserved5;                                                //RESERVED
+		uint8_t SENSORHUB13_REG;                                          //SENSORHUB13_RE
+		uint8_t SENSORHUB14_REG;                                          //SENSORHUB14_RE
+		uint8_t SENSORHUB15_REG;                                          //SENSORHUB15_RE
+		uint8_t SENSORHUB16_REG;                                          //SENSORHUB16_RE
+		uint8_t SENSORHUB17_REG;                                          //SENSORHUB17_RE
+		uint8_t SENSORHUB18_REG;                                          //SENSORHUB18_RE
+		Tun_Func_Src1 FUNC_SRC1;                                          //FUNC_SRC1
+		Tun_Func_Src2 FUNC_SRC2;                                          //FUNC_SRC2
+		uint8_t Reserved6;                                                //RESERVED
+		Tun_Tap_Cfg TAP_CFG;                                              //TAP_CFG
+		Tun_Tap_Ths_6D TAP_THS_6D;                                        //TAP_THS_6D
+		Tun_Int_Dur2 INT_DUR2;                                            //INT_DUR2
+		Tun_Wake_Up_Ths WAKE_UP_THS;                                      //WAKE_UP_THS
+		Tun_Wake_Up_Dur WAKE_UP_DUR;                                      //WAKE_UP_DUR
+		Tun_Free_Fall FREE_FALL;                                          //FREE_FALL
+		Tun_Md1_Cfg MD1_CFG;                                              //MD1_CFG
+		Tun_Md2_Cfg MD2_CFG;                                              //MD2_CFG
+		uint8_t MASTER_CMD_CODE;                                          //MASTER_CMD_COD
+		uint8_t SENS_SYNC_SPI_ERROR_CODE;                                 //SENS_SYNC_SPI_ERROR_CODE
+		uint8_t Reserved7;                                                //RESERVED
+		uint8_t OUT_MAG_RAW_X_L;                                          //OUT_MAG_RAW_X_L
+		uint8_t OUT_MAG_RAW_X_H;                                          //OUT_MAG_RAW_X_H
+		uint8_t OUT_MAG_RAW_Y_L;                                          //OUT_MAG_RAW_Y_L
+		uint8_t OUT_MAG_RAW_Y_H;                                          //OUT_MAG_RAW_Y_H
+		uint8_t OUT_MAG_RAW_Z_L;                                          //OUT_MAG_RAW_Z_L
+		uint8_t OUT_MAG_RAW_Z_H;                                          //OUT_MAG_RAW_Z_H
+		uint8_t Reserved8;                                                //RESERVED
+		Tun_Int_Ois INT_OIS;                                              //INT_OIS
+		Tun_Ctrl1_Ois CTRL1_OIS;                                          //CTRL1_OIS
+		Tun_Ctrl2_Ois CTRL2_OIS;                                          //CTRL2_OIS
+		Tun_Ctrl3_Ois CTRL3_OIS;                                          //CTRL3_OIS
+		uint8_t X_OFS_USR;                                                //X_OFS_USR
+		uint8_t Y_OFS_USR;                                                //Y_OFS_USR
+		uint8_t Z_OFS_USR;                                                //Z_OFS_USR
+		uint8_t Reserved9;                                                //RESERVED
 	} ISM330DLC_Reg_Struct;
 	uint8_t ISM330DLC_Reg_Tab[ISM330DLC_MAX_BUFFER_REG];
 } ISM330DLC_iDriver_Description;
@@ -1079,31 +1081,31 @@ typedef union
 #define CTRL_XL_6_66_kHz      0xAOU
 
 #define CTRL_XL_ACCE_FULL_SACAL_1 0x00U	//+-2g
-#define CTRL_XL_ACCE_FULL_SACAL_2 0x01U	//+-16g
-#define CTRL_XL_ACCE_FULL_SACAL_3 0x02U	//+-4g
-#define CTRL_XL_ACCE_FULL_SACAL_4 0x03U	//+-8g
+#define CTRL_XL_ACCE_FULL_SACAL_2 0x04U	//+-16g
+#define CTRL_XL_ACCE_FULL_SACAL_3 0x08U	//+-4g
+#define CTRL_XL_ACCE_FULL_SACAL_4 0x0CU	//+-8g
 
 #define CTRL_XL_LPF1_BW_SEL 0x01U 		//BW selection
 
 
 //CTRL2_G register
-#define ISM330DLC_XL_ODR_OFF 	 0x00U
-#define ISM330DLC_XL_ODR_12Hz5 	 0x10U
-#define ISM330DLC_XL_ODR_26Hz    0x20U
-#define ISM330DLC_XL_ODR_52Hz    0x30U
-#define ISM330DLC_XL_ODR_104Hz   0x40U
-#define ISM330DLC_XL_ODR_208Hz   0x50U
-#define ISM330DLC_XL_ODR_416Hz   0x60U
-#define ISM330DLC_XL_ODR_833Hz   0x70U
-#define ISM330DLC_XL_ODR_1k66Hz  0x80U
-#define ISM330DLC_XL_ODR_3k33Hz  0x90U
-#define ISM330DLC_XL_ODR_6k66Hz  0xA0U
-#define ISM330DLC_XL_ODR_1Hz6    0xB0U
+#define ISM330DL_XL_ODR_OFF 	0x00U
+#define ISM330DL_XL_ODR_12Hz5 	0x10U
+#define ISM330DL_XL_ODR_26Hz    0x20U
+#define ISM330DL_XL_ODR_52Hz    0x30U
+#define ISM330DL_XL_ODR_104Hz   0x40U
+#define ISM330DL_XL_ODR_208Hz   0x50U
+#define ISM330DL_XL_ODR_416Hz   0x60U
+#define ISM330DL_XL_ODR_833Hz   0x70U
+#define ISM330DL_XL_ODR_1k66Hz  0x80U
+#define ISM330DL_XL_ODR_3k33Hz  0x90U
+#define ISM330DL_XL_ODR_6k66Hz  0xA0U
+#define ISM330DL_XL_ODR_1Hz6    0xB0U
 
-#define GYROSCOPE_FULL_SCALE_0 0x00	//250dps
-#define GYROSCOPE_FULL_SCALE_1 0x10	//500dps
-#define GYROSCOPE_FULL_SCALE_2 0x20	//1000dps
-#define GYROSCOPE_FULL_SCALE_3 0x30	//2000dps
+#define GYROSCOPE_FULL_SCALE_0 0x00U		//250dps
+#define GYROSCOPE_FULL_SCALE_1 0x04U		//500dps
+#define GYROSCOPE_FULL_SCALE_2 0x08U		//1000dps
+#define GYROSCOPE_FULL_SCALE_3 0x0CU		//2000dps
 
 #define GYROSCOPE_FULL_SCALE_AT_125_BIT 1
 

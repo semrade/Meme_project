@@ -11,7 +11,7 @@
 #include "l3gd20.h"
 /*################################ 3D accelerometer and 3D gyroscope #################################*/
 
-#if 1
+
 #define READWRITE_CMD              ((uint8_t)0x80)
 /* Multiple byte read/write command */
 #define MULTIPLEBYTE_CMD           ((uint8_t)0x40)
@@ -40,8 +40,8 @@ void BSP_GYRO_Init_task(void);
 void BSP_GYRO_Send_Regi(TL3GD20_iDriver_Description *map, uint8_t Num);
 uint16_t BSP_ISM330DLC_ReadWrite_Reg(ISM330DLC_iDriver_Description *GyroAccDriverReg, uint16_t Num);
 
-#endif
+void BSP_ISM330_GYRO_ACC_Init_task(void);
 
-uint16_t BSP_ISM330DLC_ReadWrite_Reg(ISM330DLC_iDriver_Description *GyroAccDriverReg, uint16_t Num);
+
 void BSP_TL3GD20_ReadWrite(TL3GD20_iDriver_Description *map, uint8_t Num);
 #endif /* STM32F429I_DISCOVERY_GYRO_ACC_H_ */
