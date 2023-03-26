@@ -357,14 +357,14 @@ void BSP_ISM330_GYRO_ACC_Init_task(void)
 			//TODO add timeout if possible
 		}while(lReadValue.ISM330DLC_RegBits.SW_RESET == 1);
 
+		//load default values from device
+		//BSP_ISM330DLC_ReadWrite_Reg(&GyroAccDriver,1);
+
 		//output data updated when lsb and msb are read using CTRL3_C.
 		GyroAccDriver.ISM330DLC_Reg_Struct.CTRL1_XL.All = CTRL_XL_12_5_Hz|CTRL_XL_ACCE_FULL_SACAL_1;
 
 		//output data rate set using CTRL1_XL
 		GyroAccDriver.ISM330DLC_Reg_Struct.CTRL2_G.All = ISM330DL_XL_ODR_12Hz5|GYROSCOPE_FULL_SCALE_3;
-
-		//read data from the output registers when status
-		Acc_Gyro_Ism330dlc_Read((uint8_t*)&lStatus.All, ISM330DLC_STATUS_REG, 1);
 
 	}
 
@@ -382,7 +382,7 @@ uint16_t BSP_ISM330DLC_ReadWrite_Reg(ISM330DLC_iDriver_Description *GyroAccDrive
 {
 	uint16_t index;
 	uint16_t sizeofBuffer;
-	sizeofBuffer = 40;//sizeof(GyroAccDriverReg->ISM330DLC_Reg_Tab)/sizeof(GyroAccDriverReg->ISM330DLC_Reg_Tab[0]);
+	sizeofBuffer = 44;// sizeof(GyroAccDriverReg->ISM330DLC_Reg_Tab)/sizeof(GyroAccDriverReg->ISM330DLC_Reg_Tab[0]);
 
 	if(GyroAcc->ReadID() == GyroAccDriverReg->ISM330DLC_Reg_Struct.WHO_AM_I)
 	{
@@ -427,7 +427,8 @@ uint16_t BSP_ISM330DLC_ReadWrite_Reg(ISM330DLC_iDriver_Description *GyroAccDrive
 				}
 				else
 				{
-
+					//reset the flag when write is done!
+					ISM330DLC_Update_Regiter_Flag = 0;
 				}
 
 

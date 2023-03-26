@@ -26,10 +26,10 @@ typedef volatile union
 	struct
 	{
 
-		uint8_t TPH_3 :1; 			/*Sensor synchronization time frame with the step of 500 ms and full range of 5 s*/
-		uint8_t TPH_2 :1;
+		uint8_t TPH_0 :1; 			/*Sensor synchronization time frame with the step of 500 ms and full range of 5 s*/
 		uint8_t TPH_1 :1;
-		uint8_t TPH_0 :1;
+		uint8_t TPH_2 :1;
+		uint8_t TPH_3 :1;
 		uint8_t Reserved :4;
 	} ISM330DLC_RegBits;
 } Tun_Sen_Tim_Fram;
@@ -161,12 +161,12 @@ typedef volatile union
 	uint8_t All;
 	struct
 	{
-		uint8_t INT2_FULL_FLAG :1;		//FIFO full flag interrupt enable on INT2 pad
-		uint8_t INT2_FIFO_OVR :1;		//FIFO overrun interrupt on INT2 pad
-		uint8_t INT2_FTH :1;			//FIFO threshold interrupt on INT2 pad
-		uint8_t INT2_DRDY_TEMP :1;		//Temperature data-ready on INT2 pad
-		uint8_t INT2_DRDY_G :1;			//Gyroscope data-ready on INT2 pad
 		uint8_t INT2_DRDY_XL :1;		//Accelerometer data-ready on INT2 pad
+		uint8_t INT2_DRDY_G :1;			//Gyroscope data-ready on INT2 pad
+		uint8_t INT2_DRDY_TEMP :1;		//Temperature data-ready on INT2 pad
+		uint8_t INT2_FTH :1;			//FIFO threshold interrupt on INT2 pad
+		uint8_t INT2_FIFO_OVR :1;		//FIFO overrun interrupt on INT2 pad
+		uint8_t INT2_FULL_FLAG :1;		//FIFO full flag interrupt enable on INT2 pad
 		uint8_t Reserved :2;
 	} ISM330DLC_RegBits;
 } Tun_Int2_Ctrl;
@@ -268,8 +268,8 @@ typedef volatile union
 		uint8_t Reversed :1;
 		uint8_t USR_OFF_W :1; 	//Weight of XL user offset bits of registers
 		uint8_t XL_HM_MDOE :1; 	//High-performance operating mode disable for accelerometer
-		uint8_t LVL1_EN :1; 		//DEN level-sensitive latched enable
 		uint8_t LVL2_EN :1; 		//DEN level-sensitive latched enable
+		uint8_t LVL1_EN :1; 		//DEN level-sensitive latched enable
 		uint8_t RTIG_EN :1; 		//DEN data edge-sensitive trigger enable
 	} ISM330DLC_RegBits;
 } Tun_Ctrl6_C;
@@ -339,14 +339,14 @@ typedef volatile union
 	uint8_t All;
 	struct
 	{
-		uint8_t DRDY_ON_INT1 :1; 		//Manage the master DRDY signal on INT1 pad.
-		uint8_t DATA_VALID_SEL_FIFO :1;	//Selection of FIFO data-valid signal
-		uint8_t START_CONFIG :1;		//Sensor hub trigger signal selection
-		uint8_t PULL_UP_EN :1;			//Auxiliary I²C pull-up
-		uint8_t PASS_THROUGH_MODE :1;	//I²C interface pass-through
-		uint8_t Reserved :1;
-		uint8_t IRON_EN :1;				//Enable hard-iron correction algorithm for magnetometer
 		uint8_t MASTER_ON :1;			//Sensor hub I²C master enable
+		uint8_t IRON_EN :1;				//Enable hard-iron correction algorithm for magnetometer
+		uint8_t PASS_THROUGH_MODE :1;	//I²C interface pass-through
+		uint8_t PULL_UP_EN :1;			//Auxiliary I²C pull-up
+		uint8_t START_CONFIG :1;		//Sensor hub trigger signal selection
+		uint8_t Reserved :1;
+		uint8_t DATA_VALID_SEL_FIFO :1;	//Selection of FIFO data-valid signal
+		uint8_t DRDY_ON_INT1 :1; 		//Manage the master DRDY signal on INT1 pad.
 	} ISM330DLC_RegBits;
 } Tun_Master_Config;
 
@@ -355,12 +355,12 @@ typedef volatile union
 	uint8_t All;
 	struct
 	{
-		uint8_t FF_IA :1; 			//Free-fall event detection status
-		uint8_t SLEEP_STATE_IA :1; 	//Sleep event status
-		uint8_t WU_IA :1;			//Wakeup event detection status
-		uint8_t X_WU :1;				//Wakeup event detection status on X-axis
-		uint8_t Y_WU :1;				//Wakeup event detection status on Y-axis
 		uint8_t Z_WU :1;				//Wakeup event detection status on Z-axis
+		uint8_t Y_WU :1;				//Wakeup event detection status on Y-axis
+		uint8_t X_WU :1;				//Wakeup event detection status on X-axis
+		uint8_t WU_IA :1;			//Wakeup event detection status
+		uint8_t SLEEP_STATE_IA :1; 	//Sleep event status
+		uint8_t FF_IA :1; 			//Free-fall event detection status
 		uint8_t Reserved :2;
 	} ISM330DLC_RegBits;
 } Tun_Wake_Up_Src;
@@ -370,13 +370,13 @@ typedef volatile union
 	uint8_t All;
 	struct
 	{
-		uint8_t TAP_IA :1; 		//Tap event detection status
-		uint8_t SINGLE_TAP :1;	//Single-tap event status
-		uint8_t DOUBLE_TAP :1;	//Double-tap event detection status
-		uint8_t TAP_SIGN :1;		//Sign of acceleration detected by tap event
-		uint8_t X_TAP :1;		//Tap event detection status on X-axis
-		uint8_t Y_TAP :1;		//Tap event detection status on Y-axis
 		uint8_t Z_TAP :1;		//Tap event detection status on Z-axis
+		uint8_t Y_TAP :1;		//Tap event detection status on Y-axis
+		uint8_t X_TAP :1;		//Tap event detection status on X-axis
+		uint8_t TAP_SIGN :1;		//Sign of acceleration detected by tap event
+		uint8_t DOUBLE_TAP :1;	//Double-tap event detection status
+		uint8_t SINGLE_TAP :1;	//Single-tap event status
+		uint8_t TAP_IA :1; 		//Tap event detection status
 		uint8_t Reserved :1;
 	} ISM330DLC_RegBits;
 } Tun_Tap_Src;
@@ -386,14 +386,14 @@ typedef volatile union
 	uint8_t All;
 	struct
 	{
-		uint8_t DEN_DRDY :1; 	//DEN data-ready signal. It is set high when data output is related to the data coming from a DEN active	condition
-		uint8_t D6D_IA :1;		//Interrupt active for change position portrait, landscape, face-up, face-down
-		uint8_t ZH :1; 			//Z-axis high event (over threshold)
-		uint8_t ZL :1;			//Z-axis low event (under threshold)
-		uint8_t YH :1;			//Y-axis high event (over threshold)
-		uint8_t YL :1;			//Y-axis low event (under threshold)
-		uint8_t XH :1;			//X-axis high event (over threshold)
 		uint8_t XL :1;			//X-axis low event (under threshold)
+		uint8_t XH :1;			//X-axis high event (over threshold)
+		uint8_t YL :1;			//Y-axis low event (under threshold)
+		uint8_t YH :1;			//Y-axis high event (over threshold)
+		uint8_t ZL :1;			//Z-axis low event (under threshold)
+		uint8_t ZH :1; 			//Z-axis high event (over threshold)
+		uint8_t D6D_IA :1;		//Interrupt active for change position portrait, landscape, face-up, face-down
+		uint8_t DEN_DRDY :1; 	//DEN data-ready signal. It is set high when data output is related to the data coming from a DEN active	condition
 	} ISM330DLC_RegBits;
 } Tun_D6d_Src;
 
