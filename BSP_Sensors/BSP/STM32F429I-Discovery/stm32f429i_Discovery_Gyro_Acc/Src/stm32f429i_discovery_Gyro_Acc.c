@@ -337,8 +337,8 @@ void BSP_ISM330_GYRO_ACC_Init_task(void)
 
 	size1 = sizeof(GyroAccDriver.ISM330DLC_Reg_Struct);
 	size2 = sizeof(IMS330DLC_Reg_Type_Adr);
-	Debugvariable.id_failure =0;
-	Debugvariable.interrupt_counter =0;
+	Debugvariable.id_failure = 0;
+	Debugvariable.interrupt_counter = 0;
 	Debugvariable.loop_counter = 0;
 
 
@@ -358,7 +358,7 @@ void BSP_ISM330_GYRO_ACC_Init_task(void)
 		}while(lReadValue.ISM330DLC_RegBits.SW_RESET == 1);
 
 		//load default values from device
-		//BSP_ISM330DLC_ReadWrite_Reg(&GyroAccDriver,1);
+		BSP_ISM330DLC_ReadWrite_Reg(&GyroAccDriver,1);
 
 		//output data updated when lsb and msb are read using CTRL3_C.
 		GyroAccDriver.ISM330DLC_Reg_Struct.CTRL1_XL.All = CTRL_XL_12_5_Hz|CTRL_XL_ACCE_FULL_SACAL_1;
@@ -382,7 +382,7 @@ uint16_t BSP_ISM330DLC_ReadWrite_Reg(ISM330DLC_iDriver_Description *GyroAccDrive
 {
 	uint16_t index;
 	uint16_t sizeofBuffer;
-	sizeofBuffer = 44;// sizeof(GyroAccDriverReg->ISM330DLC_Reg_Tab)/sizeof(GyroAccDriverReg->ISM330DLC_Reg_Tab[0]);
+	sizeofBuffer = 43;// sizeof(GyroAccDriverReg->ISM330DLC_Reg_Tab)/sizeof(GyroAccDriverReg->ISM330DLC_Reg_Tab[0]);
 
 	if(GyroAcc->ReadID() == GyroAccDriverReg->ISM330DLC_Reg_Struct.WHO_AM_I)
 	{

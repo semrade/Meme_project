@@ -1,5 +1,5 @@
 /*
- * stm32f429i-Dsicovery.c
+ * stm32f429i-Discovery.c
  *
  *  Created on: 14 mars 2023
  *      Author: macbookpro

@@ -597,6 +597,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		Debugvariable.interrupt_counter ++;
 
 #if 0
+//FIXME
 		for (index = 0; index < 10; index++)
 		{
 			HAL_GPIO_WritePin(NCS_MEMS_SPI3_GPIO_Port, NCS_MEMS_SPI3_Pin, GPIO_PIN_RESET);
